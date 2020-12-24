@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>add Event AJAX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/add_events.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+
+  <!-- nav start -->
+  <div id="id01" class="w3-modal">
+  	<div class="w3-modal-content">
+  		<br /><br />
+  		<div class="w3-container" >
+  			<p>Advanced Search You Do not need reload or button Like google and better google has button</p>
+  				<input type="text" placeholder="Search.." name="search_ajax" id="search_ajax_input" style="width:80% !important;" >
+
+  		</div>
+  		<div class="w3-container">
+  			<span id="close_btn1"  class="w3-button w3-display-topright">&times;</span>
+  			<div id="search_result">
+  				<br /><br />
+  		</div>
+  		</div>
+  	</div>
+  </div>
+
+  <!-- Navigation bar with social media icons -->
+  <div class="w3-bar w3-black w3-hide-small">
+  <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
+  <a href="/bandlist" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Band List</a>
+  <a href="/band_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Advanced Band List</a>
+  <a href="/event_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-music"></i> Event List</a>
+  <a href="/golden_arrow" class="w3-bar-item w3-button"><i class="fas fa-chess-knight"></i> Golden Arrow  (Advanced_game)</a>
+  <a href="#" class="w3-bar-item w3-button w3-right">
+
+  	<!-- start of search -->
+  <div class="search-container">
+  	<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Search</button>
+  </div>
+
+  <!-- end of search -->
+
+
+  </a>
+
+  </div>
+
+  <!-- endnav -->
+
+
+<h2>ADD Events</h2>
+{% if bands %}
+<p>Please Add All the Data To Help Us Keep The Website good and look good</p>
+{% else %}
+<p>We Have 0 Bands Add your Band and Market your Events for Free</p>
+{% endif %}
+<div class="container">
+{% if bands %}
+  <form action="">
+
+
+           <div class="row">
+      <div class="col-25">
+        <label for="band_id">Select Band</label>
+      </div>
+      <div class="col-75">
+
+      <select name="band_id" id="band_id" required="required">
+      {% if bands %}
+       {% for band in bands %}
+         <option value="{{band.id}}">{{band.name}}</option>
+       {% endfor %}
+      {% endif %}
+      </select>
+
+      </div>
+    </div>
+
+
+    <br /><br /><hr />
+
+    <div class="row">
+      <div class="col-25">
+        <label for="name">Event Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="event_name" name="name" placeholder="Event Name.." class="add_event_input" required="required">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-25">
+        <label for="title">Event Title</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="event_title" name="title" placeholder="Event Title.." class="add_event_input" required="required">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-25">
+        <label for="date">Event Date</label>
+      </div>
+      <div class="col-75">
+        <input type="date" id="event_date" name="date" placeholder="Event Date.." class="add_event_input" required="required">
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-25">
+        <label for="event_image">Event Image</label>
+      </div>
+      <div class="col-75">
+        <input type="file" name="event_image" class="add_event_input" required="required" >
+      </div>
+    </div>
+
+
+    <h2>Content Info </h2>
+    <div class="row">
+      <div class="col-25">
+        <label for="event_address">Event Address</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="event_address" name="event_address" placeholder="Event Address.." class="add_event_input" required="required"></div>
+    </div>
+
+     <div class="row">
+      <div class="col-25">
+        <label for="event_price">Ticket Price</label>
+      </div>
+      <div class="col-75"><input type="text" id="event_price" name="event_price" placeholder="Ener Ticket Price" class="add_event_input" required="required"></div>
+    </div>
+
+
+
+
+
+
+
+    <div class="row">
+      <div class="col-25">
+        <label for="desc" >Event Full description</label>
+      </div>
+      <div class="col-75">
+        <textarea id="description_input" id="event_desc" name="desc" placeholder="Write something.." style="height:200px" class="add_event_input" required="required"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Commit Band">
+    </div>
+  </form>
+
+{% else %}
+<p>Please Create New Band In Order to Add Events <a href="/add_band">Add Band</a></p>
+{% endif %}
+</div>
+<script src="/static/add.js"></script>
+</body>
+</html>

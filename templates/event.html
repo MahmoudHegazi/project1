@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%;}
+.bgimg {
+  background-image: url('/static/forestbridge.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+
+</style>
+<body>
+
+  <!-- nav start -->
+  <div id="id01" class="w3-modal">
+  	<div class="w3-modal-content">
+  		<br /><br />
+  		<div class="w3-container" >
+  			<p>Advanced Search You Do not need reload or button Like google and better google has button</p>
+  				<input type="text" placeholder="Search.." name="search_ajax" id="search_ajax_input" style="width:80% !important;" >
+
+  		</div>
+  		<div class="w3-container">
+  			<span id="close_btn1"  class="w3-button w3-display-topright">&times;</span>
+  			<div id="search_result">
+  				<br /><br />
+  		</div>
+  		</div>
+  	</div>
+  </div>
+
+  <!-- Navigation bar with social media icons -->
+  <div class="w3-bar w3-black w3-hide-small">
+  <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
+  <a href="/bandlist" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Band List</a>
+  <a href="/band_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Advanced Band List</a>
+  <a href="/event_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-music"></i> Event List</a>
+  <a href="/golden_arrow" class="w3-bar-item w3-button"><i class="fas fa-chess-knight"></i> Golden Arrow  (Advanced_game)</a>
+  <a href="#" class="w3-bar-item w3-button w3-right">
+
+  	<!-- start of search -->
+  <div class="search-container">
+  	<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Search</button>
+  </div>
+
+  <!-- end of search -->
+
+
+  </a>
+
+  </div>
+
+  <!-- endnav -->
+
+
+
+<div class="main" style="height:100%;">
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    TOP10
+  </div>
+  <div class="w3-display-middle">
+    {% if event %}
+    <h1 class="w3-jumbo w3-animate-top" style="text-align:center;">{{event.name}}</h1>
+    <h5 class="w3- w3-animate-bottom" style="text-align:center;">{{event.band_id}} :  {{event.id}} </h5>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <p class="w3-large w3-center w3-animate-left" style="text-align:left;">Date: {{event.date}} , Price: {{event.price}} </p>
+    <p class="w3-large w3-center w3-animate-right" style="font-size:.920em !important;text-align:left;">Adress: {{event.address}} </p>
+    <h4 class="w3-large w3-center w3-animate-bottom" style="text-align:center;">Event Description: </h4>
+    <p class="w3-large w3-center w3-animate-left" style="overflow:auto;text-align:center;">{{event.full_desc}}</p>
+    <a class="w3-button w3-red" href="/remove_event/{{event.id}}">Remove</a>
+    <a class="w3-button w3-green" href="/edit_event/{{event.id}}">Edit</a>
+<br /><br />
+
+    <div class="w3-jumbo w3-animate-bottom " style="text-align:left;">
+<img src="{{event.image}}" height="300" width="300">
+    </div>
+      {% endif %}
+  </div>
+
+  <div class="w3-display-bottomleft w3-padding-large">
+    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+  </div>
+</div>
+</div>
+<script src="../static/event_script.js"></script>
+</body>
+</html>

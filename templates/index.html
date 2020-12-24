@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<title>Advanced Trac Project1</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<style>
+h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+body {font-family: "Open Sans"}
+
+</style>
+
+
+
+
+
+
+<body class="w3-light-grey">
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <br /><br />
+      <div class="w3-container" >
+        <p>Advanced Search You Do not need reload or button Like google and better google has button</p>
+          <input type="text" placeholder="Search.." name="search_ajax" id="search_ajax_input" style="width:80% !important;" >
+
+      </div>
+      <div class="w3-container">
+        <span id="close_btn1"  class="w3-button w3-display-topright">&times;</span>
+        <div id="search_result">
+          <br /><br />
+      </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Navigation bar with social media icons -->
+<div class="w3-bar w3-black w3-hide-small">
+  <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
+  <a href="/bandlist" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Band List</a>
+  <a href="/band_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Advanced Band List</a>
+  <a href="/event_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-music"></i> Event List</a>
+  <a href="/golden_arrow" class="w3-bar-item w3-button"><i class="fas fa-chess-knight"></i> Golden Arrow  (Advanced_game)</a>
+  <a href="#" class="w3-bar-item w3-button w3-right">
+
+    <!-- start of search -->
+  <div class="search-container">
+    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Search</button>
+  </div>
+
+<!-- end of search -->
+
+
+  </a>
+
+</div>
+
+
+
+<!-- w3-content defines a container for fixed size centered content,
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1600px">
+  <! -- notification_message -->
+
+   {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+
+     <div class="alert alert-info" style="display:none;height:35px !important;">
+     <strong> {{ message }} </strong>
+     <span class="closebtn" style="float:right;background-color:red;color:white;padding:2px;width:25px;text-align:center;margin-bottom:26px;font-size:1em;cursor:pointer;font-weight:bold;border:2px solid white;border-radous:8%;">&times;</span>
+     </div>
+  {% endfor %}
+
+  {% endif %}
+  {% endwith %}
+
+
+  <div id="error_container" class="alert alert-info" style="display:none;height:35px !important;padding:5px;">
+  <strong id="error_messages1" > </strong>
+  <span class="closebtn" style="float:right;background-color:red;color:white;padding:2px;width:25px;text-align:center;margin-bottom:26px;font-size:1em;cursor:pointer;font-weight:bold;border:2px solid white;border-radous:8%;">&times;</span>
+  </div>
+
+
+  <script>
+  var close = document.getElementsByClassName("closebtn");
+  var i;
+
+  for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+  var div = this.parentElement;
+  div.style.opacity = "0";
+  setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+  }
+  </script>
+  <!-- end noti -->
+  <!-- Header -->
+  <header class="w3-container w3-center w3-padding-48 w3-white">
+    <h1 class="w3-xxxlarge"><b>Top 10</b></h1>
+    <h6>Welcome to My First <span class="w3-tag">HTML Website</span></h6>
+  </header>
+
+  <!-- Image header -->
+  <header class="w3-display-container w3-wide" id="home">
+    <img class="w3-image" src="https://wallpapercave.com/wp/0l0kzYB.jpg" alt="Fashion Blog" width="1600" height="1060">
+    <div class="w3-display-left w3-padding-large">
+      <h1 class="w3-text-white">Top10</h1>
+      <h1 class="w3-jumbo w3-text-white w3-hide-small"><b>Music Band</b></h1>
+
+{% if top1 %}
+      <h6>
+    <button class="w3-button w3-white w3-padding-large w3-large w3-opacity w3-hover-opacity-off"onclick="document.getElementById('subscribe').style.display='block'">Add Your Events</button>
+    <a href="/add_band" class="w3-button w3-white w3-padding-large w3-large w3-opacity w3-hover-opacity-off">Add Band</a>
+   </h6>
+{% endif %}
+    </div>
+  </header>
+
+  <!-- Grid. -->
+  <div class="w3-row w3-padding w3-border">
+
+    <!-- Top events Enteries -->
+    <div class="w3-col l8 s12">
+
+
+{% if events %}
+
+    {% for event in events %}
+      <!-- start of top event -->
+      <div class="w3-container w3-white w3-margin w3-padding-large">
+
+        <div class="w3-center">
+          <a href="/event/{{event.id}}"><h3>{{event.name}}</h3></a>
+          <h5>{{event.title}} , <span class="w3-opacity">On: {{event.date}}</span></h5>
+        </div>
+
+        <div class="w3-justify">
+          <a href="/event/{{event.id}}"><img src="{{event.image}}" alt="Runway" style="width:100%" class="w3-padding-16"></a>
+          <p><strong>Dont miss!</strong> {% if event %} {{event.full_desc}} {% endif%}</p>
+
+
+          <p class="w3-clear"></p>
+
+
+<script>
+
+</script>
+          <!-- comment -->
+          <div id="demo{{event.id}}" style="display:none">
+            <hr>
+             {% if comments %}
+            <!-- one comment -->
+            {% for comment in comments %}
+            {% if comment.event_id == event.id %}
+            <div class="w3-row w3-margin-bottom">
+              <div class="w3-col l2 m3">
+                <img src="{{comment.image}}" style="width:90px;">
+              </div>
+              <div class="w3-col l10 m9">
+                <h4>{{comment.sender_name}} <span class="w3-opacity w3-medium">{{comment.date}}</span></h4>
+                <p>{{comment.content}}</p>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+           <!-- one comment end -->
+           {% else %}
+           <div class="w3-row w3-margin-bottom">
+             <div class="w3-col l2 m3"><i class="fa fa-comment"></i> 0 Comments</div>
+             <div class="w3-col l2 m3"><i class="fa fa-like"></i> <span>{{event.like}} </span>Likes</div>
+             <div class="w3-col l10 m9"></div>
+           </div>
+
+           {% endif %}
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- end of top event -->
+{% endfor %}
+
+ {% else %}
+
+       <!-- start of top event -->
+      <div class="w3-container w3-white w3-margin w3-padding-large">
+        <div class="w3-justify">
+        {% if top1 %}
+        0 Events Found Why Not you Create Our First Event
+        <button class="w3-button w3-red"onclick="document.getElementById('subscribe').style.display='block'">Add Your Events</button>
+
+        {% else %}
+        0 Events Found and 0 band Why Not you Create Our First Event <a href="/add_band" class="w3-button w3-red">Add Band</a>
+        {% endif %}
+        </div>
+      </div>
+
+      <!-- end of top event -->
+
+
+
+
+
+ {% endif %}
+
+    <!-- END top events -->
+    </div>
+
+
+    <!-- top1 band -->
+    <div class="w3-col l4">
+      <!-- About Card -->
+  {% if top1 %}
+    <a href="/band/{{top1.id}}" title="Go to {{top1.name}} Fans Page!.">
+        <div class="w3-white w3-margin">
+        <img src="{{top1.main_image}}" alt="Jane" style="width:100%" class="w3-grayscale">
+        <div class="w3-container w3-black">
+          <h4>Top1: <span style="color:crimson;">{{ top1.name}}</span></h4>
+          <p>{{top1.description}}</p>
+        </div>
+
+      </div>
+    </a>
+    {% endif %}
+      <hr>
+{% if commings %}
+      <!-- upcoming events -->
+      <div class="w3-white w3-margin">
+        <div class="w3-container w3-padding w3-black">
+          <h4>upcoming Events</h4>
+        </div>
+
+
+        <ul class="w3-ul w3-hoverable w3-white">
+
+         {% for comming in commings %}
+          <li class="w3-padding-16"><a href="/event/{{comming.id}}">
+            <img src="{{comming.image}}" alt="{{comming.alt}}" class="w3-left w3-margin-right" width="50" height="50">
+            <span class="w3-large">{{comming.band}}</span>
+            <br>
+            <span>{{comming.date}}</span>
+          </a>
+          </li>
+         {% endfor %}
+        </ul>
+
+
+      </div>
+      {% endif %}
+      <hr>
+
+    <!-- END About/Intro Menu -->
+    </div>
+
+  <!-- END GRID -->
+  </div>
+
+<!-- END w3-content -->
+</div>
+
+<!-- this for subscribe async with first if -->
+{% if top1 %}
+
+<!-- Subscribe Modal -->
+<div id="subscribe" class="w3-modal w3-animate-opacity">
+  <div class="w3-modal-content" style="padding:32px;">
+    <div class="w3-container w3-white">
+      <i onclick="document.getElementById('subscribe').style.display='none'" class="fa fa-remove w3-transparent w3-button w3-xlarge w3-right"></i>
+      <h2 class="w3-wide">Create New Event</h2>
+      <p>Do you have a band ?<br /> with top1 You can help them sell your tickets through our platform for free ...</p>
+      <form id="add_event_form" action="/addevent" method="post" enctype="multipart/form-data">
+      <p><input id="name" class="w3-input w3-border" type="text" name="name" placeholder="Enter name"></p>
+      <p><input id="title" class="w3-input w3-border" type="text" name="title" placeholder="Enter title"></p>
+      <p><input id="date" class="w3-input w3-border" type="date" name="date" placeholder="Enter date"></p>
+      <p><input id="image" class="w3-input w3-border" type="file" name="image" ></p>
+      <p><input id="address" class="w3-input w3-border" type="text" name="address" placeholder="Enter address"></p>
+      <!-- my first patern I created it or figured -->
+
+      <p><input id="price" class="w3-input w3-border" pattern="(?=.*[0-9]).{1,6}" type="text" name="price" onkeypress="this.value = '$' + this.value.replace('$','')" value="" placeholder="Enter price"></p>
+      <p><textarea id="full_desc" class="w3-input w3-border" type="text" name="full_desc" rows="4"></textarea></p>
+      <p><select id="band_id" class="w3-input w3-border" type="text" name="band_id" title="Select band_id">
+       {% if bands %}
+         {% for band in bands %}
+         <option value="{{band.id}}">{{band.name}}</option>
+         <option>{{band.id}}</option>
+         <option>{{band.id}}</option>
+
+         {% endfor %}
+       {% endif %}
+     </select</p>
+      <input type="submit" value="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" id="add_event_btn">
+    </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+
+</script>
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey" style="padding:32px">
+  <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+<script src="/static/script.js"></script>
+
+
+</body>
+</html>

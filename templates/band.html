@@ -1,0 +1,328 @@
+{% if band %}
+<!DOCTYPE html>
+<html lang="en">
+<title>{{band.name}}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+<!-- Navbar -->
+<!-- nav start -->
+<div id="id01" class="w3-modal">
+	<div class="w3-modal-content">
+		<br /><br />
+		<div class="w3-container" >
+			<p>Advanced Search You Do not need reload or button Like google and better google has button</p>
+				<input type="text" placeholder="Search.." name="search_ajax" id="search_ajax_input" style="width:80% !important;" >
+
+		</div>
+		<div class="w3-container">
+			<span id="close_btn1"  class="w3-button w3-display-topright">&times;</span>
+			<div id="search_result">
+				<br /><br />
+		</div>
+		</div>
+	</div>
+</div>
+
+<!-- Navigation bar with social media icons -->
+<div class="w3-bar w3-black w3-hide-small">
+<a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
+<a href="/bandlist" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Band List</a>
+<a href="/band_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Advanced Band List</a>
+<a href="/event_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-music"></i> Event List</a>
+<a href="/golden_arrow" class="w3-bar-item w3-button"><i class="fas fa-chess-knight"></i> Golden Arrow  (Advanced_game)</a>
+<a href="#" class="w3-bar-item w3-button w3-right">
+
+	<!-- start of search -->
+<div class="search-container">
+	<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Search</button>
+</div>
+
+<!-- end of search -->
+
+
+</a>
+
+</div>
+
+<!-- endnav -->
+
+
+<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="#band" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">BAND</a>
+  <a href="#tour" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TOUR</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+
+<!-- events show -->
+
+{% if band %}
+  <!-- Automatic Slideshow Images -->
+
+  <div class="mySlides w3-display-container w3-center">
+    <img src="{{band.main_image}}" style="width:100%">
+    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h3>{{band.name}}</h3>
+      <p><b>{{band.title}}</b></p>
+    </div>
+  </div>
+
+    <div class="mySlides w3-display-container w3-center">
+      <img src="{{band.image1}}" style="width:100%">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3>{{band.name}} </h3>
+        <p><b>{{band.title}}</b></p>
+      </div>
+    </div>
+
+    <div class="mySlides w3-display-container w3-center">
+      <img src="{{band.image2}}" style="width:100%">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3>{{band.name}}</h3>
+        <p><b>{{band.title}}</b></p>
+      </div>
+    </div>
+
+
+{% else %}
+
+  <div class="mySlides w3-display-container w3-center">
+    <img src="/static/deafult_band3.jpg" style="width:100%">
+    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h3><a href="/add_band">
+      <button class="create_event_single">Add Event</button>
+      </a>
+      </h3>
+      <p><b>This Band Has 0 Events</b></p>
+      <p><a  id="delete_band_link"
+        data-band-name="{{band.name}}" data-href="/remove_band/{{band.id}}" class="w3-button w3-red">Remove</a><a href="/edit_band/{{band.id}}" class="w3-button w3-green">Edit  </a></p>
+
+{% endif %}
+
+<!-- end of event show -->
+
+{% if band %}
+  <!-- The Band Section -->
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+    <h2 class="w3-wide">{{band.name}}</h2>
+    <p><a id="delete_band_link"
+      data-band-name="{{band.name}}" data-href="/remove_band/{{band.id}}" class="w3-button w3-red">Remove</a><a href="/edit_band/{{band.id}}" class="w3-button w3-green">Edit  </a></p>
+    <p class="w3-opacity"><i>{{band.title}}</i></p>
+    <p class="w3-justify">{{band.full_desc}}</p>
+    <div class="w3-row w3-padding-32">
+
+
+
+          {% if band.band_member_name1 and  band.band_member_image1 %}
+      <div class="w3-third">
+        <p>{{band.band_member_name1}}</p>
+        <img src="{{band.band_member_image1}}" class="w3-round w3-margin-bottom" alt="{{band.band_member_name3}} image" style="width:60%">
+      </div>
+      {% endif %}
+
+      {% if band.band_member_name2 and  band.band_member_image2 %}
+  <div class="w3-third">
+    <p>{{band.band_member_name2}}</p>
+    <img src="{{band.band_member_image1}}" class="w3-round w3-margin-bottom" alt="{{band.band_member_name3}} image" style="width:60%">
+  </div>
+  {% endif %}
+
+  {% if band.band_member_name3 and band.band_member_image3 %}
+<div class="w3-third">
+<p>{{band.band_member_name3}}</p>
+<img src="{{band.band_member_image3}}" class="w3-round w3-margin-bottom" alt="{{band.band_member_name3}} image" style="width:60%">
+</div>
+{% endif %}
+
+    </div>
+
+  </div>
+{% endif %}
+
+
+{% if events %}
+  <!-- Events Section -->
+  <div class="w3-black" id="tour">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+
+
+
+
+
+      <ul class="w3-ul w3-border w3-white w3-text-grey">
+
+           {% for single_event in events %}
+        <li class="w3-padding">{{single_event.date}}<span class="w3-tag w3-red w3-margin-left">Avail</span></li>
+		   {% endfor %}
+
+
+      </ul>
+
+
+<!-- start of event -->
+      <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+        {% for single_event in events %}
+        <div class="w3-third w3-margin-bottom">
+          <img src="{{single_event.image}}" alt="{{single_event.name}}" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-white">
+            <p><b>{{single_event.address}}</b></p>
+            <p class="w3-opacity">{{single_event.date}}</p>
+            <p>{{single_event.title}}</p>
+            <button id="buytickt{{single_event.id}}" class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal{{single_event.id}}').style.display='block'">Buy Tickets</button>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+<!-- end of event -->
+
+
+
+  {% else %}
+
+        <h2 class="w3-wide w3-center">EVENTS DATES</h2>
+      <p class="w3-opacity w3-center"><i>Remember to book your tickets!</i></p><br>
+
+    </div>
+  </div>
+
+
+
+ {% endif %}
+
+
+  <!-- The Contact Section -->
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <h2 class="w3-wide w3-center">CONTACT</h2>
+    <p class="w3-opacity w3-center"><i>Fan? Drop a note!</i></p>
+    <div class="w3-row w3-padding-32">
+      <div class="w3-col m6 w3-large w3-margin-bottom">
+        {% if band %}
+        <i class="fa fa-phone" style="width:30px"></i>Phone: {{band.mobile}}<br>
+        <i class="fa fa-envelope" style="width:30px"> </i> Email: {{band.email}}<br>
+        {% endif %}
+      </div>
+      <div class="w3-col m6">
+        <form action="/contant_band" target="_blank" method="post">
+          <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+            <div class="w3-half">
+              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+            </div>
+            <div class="w3-half">
+              <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+            </div>
+          </div>
+          <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+          <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- End Page Content -->
+</div>
+
+<!-- Image of location/map -->
+<img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%">
+
+
+<!-- Subscribe Modal -->
+<div id="subscribe" class="w3-modal w3-animate-opacity">
+  <div class="w3-modal-content" style="padding:32px;">
+    <div class="w3-container w3-white">
+      <i onclick="document.getElementById('subscribe').style.display='none'" class="fa fa-remove w3-transparent w3-button w3-xlarge w3-right"></i>
+      <h2 class="w3-wide">Create New Event</h2>
+      <p>Do you have a band ?<br /> with top1 You can help them sell your tickets through our platform for free ...</p>
+      <form id="add_event_form" action="/addevent" method="post" enctype="multipart/form-data">
+      <p><input id="name" class="w3-input w3-border" type="text" name="name" placeholder="Enter name"></p>
+      <p><input id="title" class="w3-input w3-border" type="text" name="title" placeholder="Enter title"></p>
+      <p><input id="date" class="w3-input w3-border" type="date" name="date" placeholder="Enter date"></p>
+      <p><input id="image" class="w3-input w3-border" type="file" name="image" ></p>
+      <p><input id="address" class="w3-input w3-border" type="text" name="address" placeholder="Enter address"></p>
+      <!-- my first patern I created it or figured -->
+
+      <p><input id="price" class="w3-input w3-border" pattern="(?=.*[0-9]).{1,6}" type="text" name="price" onkeypress="this.value = '$' + this.value.replace('$','')" value="" placeholder="Enter price"></p>
+      <p><textarea id="full_desc" class="w3-input w3-border" type="text" name="full_desc" rows="4"></textarea></p>
+      <p><select id="band_id" class="w3-input w3-border" type="text" name="band_id" title="Select band_id">
+       {% if bands %}
+         {% for band in bands %}
+         <option value="{{band.id}}">{{band.name}}</option>
+         <option>{{band.id}}</option>
+         <option>{{band.id}}</option>
+
+         {% endfor %}
+       {% endif %}
+     </select</p>
+      <input type="submit" value="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" id="add_event_btn">
+    </form>
+    </div>
+  </div>
+</div>
+<!-- endof sub -->
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+  <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+{% for single_event in events %}
+  <!-- Ticket Modal -->
+  <div id="ticketModal{{single_event.id}}" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+      <header class="w3-container w3-teal w3-center w3-padding-32">
+        <!-- advanced -->
+        <span onclick="document.getElementById('ticketModal{{single_event.id}}').style.display='none'"
+       class="w3-button w3-teal w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide"><i class="fa fa-suitcase w3-margin-right"></i>Tickets</h2>
+      </header>
+      <div class="w3-container">
+        <p><label><i class="fa fa-shopping-cart"></i> Tickets, ${{single_event.price}} per person</label></p>
+        <input class="w3-input w3-border" type="text" placeholder="How many?">
+        <p><label><i class="fa fa-user"></i> Send To</label></p>
+        <input class="w3-input w3-border" type="text" placeholder="Enter email">
+        <button class="w3-button w3-block w3-teal w3-padding-16 w3-section w3-right">PAY <i class="fa fa-check"></i></button>
+        <button class="w3-button w3-red w3-section" onclick="document.getElementById('ticketModal').style.display='none'">Close <i class="fa fa-remove"></i></button>
+        <p class="w3-right">Need <a href="#" class="w3-text-blue">help?</a></p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+<script src="../static/band_script.js"></script>
+</body>
+</html>
+{% else %}
+<!DOCTYPE html>
+<html lang="en">
+<body onload="hacker_function()">
+  <script>
+    // Advanced Handle
+    function hacker_function(){
+      window.location.replace('/home?error1=band deleted or not found');
+    }
+
+  </script>
+
+</body>
+</html>
+{% endif %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Event AJAX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/add_events.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+
+  <!-- nav start -->
+  <div id="id01" class="w3-modal">
+  	<div class="w3-modal-content">
+  		<br /><br />
+  		<div class="w3-container" >
+  			<p>Advanced Search You Do not need reload or button Like google and better google has button</p>
+  				<input type="text" placeholder="Search.." name="search_ajax" id="search_ajax_input" style="width:80% !important;" >
+
+  		</div>
+  		<div class="w3-container">
+  			<span id="close_btn1"  class="w3-button w3-display-topright">&times;</span>
+  			<div id="search_result">
+  				<br /><br />
+  		</div>
+  		</div>
+  	</div>
+  </div>
+
+  <!-- Navigation bar with social media icons -->
+  <div class="w3-bar w3-black w3-hide-small">
+  <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
+  <a href="/bandlist" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Band List</a>
+  <a href="/band_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Advanced Band List</a>
+  <a href="/event_list/page/1" class="w3-bar-item w3-button"><i class="fa fa-music"></i> Event List</a>
+  <a href="/golden_arrow" class="w3-bar-item w3-button"><i class="fas fa-chess-knight"> Golden Arror</i> </a>
+  <a href="#" class="w3-bar-item w3-button w3-right">
+
+  	<!-- start of search -->
+  <div class="search-container">
+  	<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Search</button>
+  </div>
+
+  <!-- end of search -->
+
+
+  </a>
+
+  </div>
+
+  <!-- endnav -->
+
+
+<h2>Edit Events</h2>
+{% if bands %}
+<p>Please Add All the Data To Help Us Keep The Website good and look good</p>
+{% else %}
+<p>We Have 0 Bands Add your Band and Market your Events for Free</p>
+{% endif %}
+<div class="container">
+{% if bands and event%}
+
+
+<form action="/submit_edit/event" method="post" enctype="multipart/form-data">
+<p><input id="name" value="{{event.name}}" class="w3-input w3-border" type="text" name="name" placeholder="Enter name"></p>
+<p><input id="title" value="{{event.title}}"  class="w3-input w3-border" type="text" name="title" placeholder="Enter title"></p>
+<p><input id="date" value="{{event.date}}"  class="w3-input w3-border" type="date" name="date" placeholder="Enter date"></p>
+<p><input id="image" value="{{event.image}}" class="w3-input w3-border" type="file" name="image" ></p>
+<p><input id="address" value="{{event.address}}"  class="w3-input w3-border" type="text" name="address" placeholder="Enter address"></p>
+<!-- my first patern I created it or figured -->
+<input  value="{{event.id}}"  type="text" name="event_id" style="display:none;" readonly required="required">
+<p><input id="price" value="{{event.price}}" class="w3-input w3-border" type="text" name="price" onkeypress="this.value = '$' + this.value.replace('$','')" value="" placeholder="Enter price"></p>
+<p><textarea id="full_desc" class="w3-input w3-border" type="text" name="full_desc" rows="4">{{event.full_desc}}</textarea></p>
+<p><select id="band_id" class="w3-input w3-border" type="text" name="band_id" title="Select band_id">
+ {% if bands %}
+   {% for band in bands %}
+     {% if event.band_id == band.id %}
+       <option value="{{band.id}}" selec="selected">{{band.name}}</option>
+     {% else %}
+       <option value="{{band.id}}">{{band.name}}</option>
+     {% endif %}
+
+   {% endfor %}
+ {% endif %}
+</select</p>
+<input type="submit" value="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" id="add_event_btn">
+</form>
+
+
+
+{% else %}
+<p>Please Create New Band In Order to Add Events <a href="/add_band">Add Band</a></p>
+{% endif %}
+</div>
+<script src="/static/add.js"></script>
+</body>
+</html>
